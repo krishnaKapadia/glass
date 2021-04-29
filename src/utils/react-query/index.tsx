@@ -3,7 +3,9 @@ import React, { FunctionComponent } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
-const queryClient = new QueryClient();
+import { config } from "./config";
+
+const queryClient = new QueryClient(config);
 
 export const ReactQueryProvider: FunctionComponent = ({ children }) => (
   <QueryClientProvider client={queryClient}>
