@@ -42,10 +42,10 @@ export const Overview: FunctionComponent = () => {
       </header>
 
       <Section title="Things..." addItem={createWorkItem}>
-        <div className="flex flex-wrap flex-row md:flex-column justify-between mt-4">
+        <div className="flex flex-wrap flex-row md:flex-column justify-between mt-4 w-full">
           {data?.map((d, idx) => (
             <div
-              key={idx}
+              key={d.id}
               className={`w-full md:w-1/2 ${
                 idx % 2 ? "pl-0 md:pl-2" : "pr-0 md:pr-2"
               }`}
