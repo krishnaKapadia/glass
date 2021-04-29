@@ -14,14 +14,10 @@ export const Overview: FunctionComponent = () => {
   const createWorkItemMutation = useMutation(API.createWorkItem);
   const updateWorkItemMutation = useMutation(API.updateWorkItem);
 
-  const createWorkItem = () => {
-    console.log("creation triggered");
+  const createWorkItem = () =>
     createWorkItemMutation.mutateAsync(undefined).then(() => refetch());
-  };
-
-  const updateWorkItem = (item: WorkItem) => {
+  const updateWorkItem = (item: WorkItem) =>
     updateWorkItemMutation.mutateAsync(item).then(() => refetch());
-  };
 
   const date = new Date(Date.now());
   const formattedDate = `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}`;

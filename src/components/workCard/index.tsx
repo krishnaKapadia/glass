@@ -13,9 +13,20 @@ type Props = {
 };
 
 export const WorkCard: FunctionComponent<Props> = ({ data, updateData }) => {
+  const [isEditing, setEditing] = useState(false);
+
   const [name, setName] = useState(data.name || "");
   const [description, setDescription] = useState(data.description || "");
-  const onBlur = useCallback(() => updateData(data), [data.id]);
+  const onBlur = useCallback(() => {
+    updateData(data);
+    setEditing(false);
+  }, [data.id]);
+
+  const onFocus = () => {
+    if (!isEditing) {
+      setEditing(true);
+    }
+  };
 
   return (
     <div className="bg-white mb-4 p-2 pl-4 pr-4 rounded-md w-full">
@@ -26,6 +37,8 @@ export const WorkCard: FunctionComponent<Props> = ({ data, updateData }) => {
           disabled={false}
           onChange={(e) => setName(e.target.value)}
           onBlur={onBlur}
+          onFocus={onFocus}
+          placeholder={"Enter a title"}
         />
       </header>
 
@@ -35,9 +48,14 @@ export const WorkCard: FunctionComponent<Props> = ({ data, updateData }) => {
         disabled={false}
         onChange={(e) => setDescription(e.target.value)}
         onBlur={onBlur}
+        onFocus={onFocus}
+        placeholder={"Enter a description"}
       />
 
-      <footer className="flex justify-end mt-2 p-2">
+      <footer
+        className="flex justify-between align-center mt-2"
+        style={{ height: "44px" }}
+      >
         <div className="flex flex-row items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,6 +74,12 @@ export const WorkCard: FunctionComponent<Props> = ({ data, updateData }) => {
 
           <p className="text-black ml-2">{getTime(data.dateCreated)}</p>
         </div>
+
+        {isEditing && (
+          <button className="h-10 px-5 text-gray-800 transition-colors duration-150 bg-white rounded-lg focus:shadow-outline hover:bg-gray-200">
+            Save
+          </button>
+        )}
       </footer>
     </div>
   );
