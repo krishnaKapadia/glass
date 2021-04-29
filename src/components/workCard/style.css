@@ -1,0 +1,15 @@
+.description {
+  position: relative;
+  max-height: 3em;
+  overflow: hidden;
+}
+
+.description:after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 0;
+    height: 40px;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgb(255, 255, 255));
+}

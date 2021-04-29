@@ -5,8 +5,14 @@ module.exports = {
   theme: {
     extend: {},
   },
-  variants: {},
-  plugins: [],
+  variants: {
+    extend: {
+      margin: ['even', 'odd']
+    }
+  },
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
   purge: {
     // Filenames to scan for classes
     content: [
