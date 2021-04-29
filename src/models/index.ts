@@ -7,4 +7,5 @@ export type WorkItem = {
   dateCreated: Date;
 
   sectionId: string;
+  order: number;
 };

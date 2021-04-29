@@ -1,14 +1,18 @@
 /** @format */
 
 import React, { FunctionComponent } from "react";
+import { Droppable } from "react-beautiful-dnd";
+
 import { WorkItem } from "../../models";
 
 type Props = {
   title: string;
   addItem?: (item?: WorkItem) => void;
+  id: string;
 };
 
 export const Section: FunctionComponent<Props> = ({
+  id,
   title,
   addItem,
   children,
@@ -41,7 +45,19 @@ export const Section: FunctionComponent<Props> = ({
         </button>
       )}
 
-      <div className="flex flex-row mt-4">{children}</div>
+      <div className="flex flex-row mt-4">
+        <Droppable droppableId={id}>
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="w-full"
+            >
+              {children}
+            </div>
+          )}
+        </Droppable>
+      </div>
     </section>
   );
 };
