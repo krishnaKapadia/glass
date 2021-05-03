@@ -7,5 +7,10 @@ export type WorkItem = {
   dateCreated: Date;
 
   sectionId: string;
-  order: number;
+};
+
+export type Section = {
+  id: string;
+  title: string;
+  items: WorkItem[];
 };

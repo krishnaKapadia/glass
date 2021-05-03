@@ -1,37 +1,63 @@
 /** @format */
-import { WorkItem } from "../models";
+import * as Models from "../models";
 import * as Utils from "../utils";
-import { data } from './data';
+import { data } from "./data";
+import { WorkItem } from "../models/index";
 
-function createEmptyItem(order: number): WorkItem {
+function createEmptyItem(sectionId: string): Models.WorkItem {
   return {
     id: Utils.generateGuid(),
     name: "",
     description: "",
     dateCreated: new Date(Date.now()),
-    sectionId: "0",
-    order
+    sectionId,
   };
 }
 
-export async function getData(): Promise<WorkItem[]> {
-  return new Promise((res) => res(Object.values(data).sort((a, b) => a.order > b.order ? 1 : -1)));
+export async function getSections(): Promise<Models.Section[]> {
+  return new Promise((res) => res(Object.values(data)));
 }
 
-export async function createWorkItem(): Promise<boolean> {
+export async function createWorkItem(sectionId: string): Promise<boolean> {
   return new Promise((res) => {
-    const workItem = createEmptyItem(Math.max((data as any).length - 1, 0));
-    data[workItem.id] = workItem;
+    const workItem = createEmptyItem(sectionId);
+    data[sectionId].items.push(workItem);
     res(true);
   });
 }
 
-export async function updateWorkItem(item: WorkItem): Promise<boolean> {
-  console.log(data, "test", item);
+export async function updateWorkItem(item: Models.WorkItem): Promise<boolean> {
+  return new Promise((res) => {
+    const section = { ...data[item.sectionId] };
+    const workItems = section.items;
+
+    workItems.splice(workItems.indexOf(item), 1);
+
+    workItems.push(item);
+    data[item.sectionId] = section;
+    res(true);
+  });
+}
+
+type MoveItemParams = {
+  item: WorkItem;
+  targetSectionId: string;
+};
+
+export async function moveItem({
+  item,
+  targetSectionId,
+}: MoveItemParams): Promise<boolean> {
+  console.log("moved");
 
   return new Promise((res) => {
-    data[item.id] = item;
-    console.log(data);
+    const origin = { ...data[item.sectionId] };
+    origin.items = origin.items.filter((i) => i.id !== item.id);
+    item.sectionId = targetSectionId;
+
+    data[origin.id] = origin;
+    data[targetSectionId].items.push(item);
+
     res(true);
   });
 }

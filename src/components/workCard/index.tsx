@@ -74,10 +74,7 @@ export const WorkCard: FunctionComponent<Props> = ({
             placeholder={"Enter a description"}
           />
 
-          <footer
-            className="flex justify-between align-center mt-2"
-            style={{ height: "44px" }}
-          >
+          <footer className="flex justify-between align-center mt-2">
             <div className="flex flex-row items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -97,11 +94,27 @@ export const WorkCard: FunctionComponent<Props> = ({
               <p className="text-black ml-2">{getTime(data.dateCreated)}</p>
             </div>
 
+            <svg
+              // {...provided.dragHandleProps}
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.636 18.364a9 9 0 010-12.728m12.728 0a9 9 0 010 12.728m-9.9-2.829a5 5 0 010-7.07m7.072 0a5 5 0 010 7.07M13 12a1 1 0 11-2 0 1 1 0 012 0z"
+              />
+            </svg>
+            {/* 
             {isEditing && (
               <button className="h-10 px-5 text-gray-800 transition-colors duration-150 bg-white rounded-lg focus:shadow-outline hover:bg-gray-200">
                 Save
               </button>
-            )}
+            )} */}
           </footer>
         </div>
       )}
